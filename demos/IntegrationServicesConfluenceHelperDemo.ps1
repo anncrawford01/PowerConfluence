@@ -10,7 +10,7 @@ Import-Module .\Credentials.psm1 -Force
 
 $ConfluenceConnection = Get-ConfluenceConnection -UserName $Credentials.UserName -ApiToken $Credentials.ApiToken -HostName $Credentials.HostName
 $SqlAgentServerDev = $Credentials.SqlAgentServerDev
-$spaceKey = "GSD"
+$spaceKey = "DST"
 
 
 ########################################################
@@ -19,7 +19,7 @@ $spaceKey = "GSD"
 
 
 $catalog = (Get-IntegrationServicesCatalog -ServerName $SqlAgentServerDev)
-$package = $catalog.Folders["Ucsb.Sa.DataManagement.IntegrationServices"].Projects["Ucsb.Sa.DataManagement.IntegrationServices.GradDiv"].Packages["GradDiv - Load GRE.dtsx"]
+$package = $catalog.Folders["Ucsb.Sa.DataManagement.IntegrationServices"].Projects["Ucsb.Sa.DataManagement.IntegrationServices.Sevis"].Packages["Sevis - Archive_ShrinkMainframeTables.dtsx"]
 
 Publish-IntegrationServicesPackageConfluencePage -ConfluenceConnection $ConfluenceConnection -SpaceKey $spaceKey -Package $package -Catalog $catalog
 #>

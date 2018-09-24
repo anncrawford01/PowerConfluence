@@ -128,7 +128,7 @@ function Format-IntegrationServicesPackagePageProperties($Package,$Title="Packag
 
 function Get-IntegrationServicesPackageExecutions($Catalog,$FolderName,$ProjectName,$PackageName)
 {
-    $Catalog.Executions | Where-Object {($_.FolderName -eq $FolderName) -and ($_.ProjectName -eq $ProjectName) -and ($_.PackageName -eq $PackageName)}
+    ##  Ann Crawford remove executions from documentation $Catalog.Executions | Where-Object {($_.FolderName -eq $FolderName) -and ($_.ProjectName -eq $ProjectName) -and ($_.PackageName -eq $PackageName)}
 }
 
 function Get-IntegrationServicesRecentExecutions($Executions,$Count=50) {
@@ -140,57 +140,59 @@ function Get-IntegrationServicesRecentExecutions($Executions,$Count=50) {
 ###############################################################
 
 function Format-IntegrationServicesExecutions ($Executions,[switch]$IncludePackage) {
-    # build the table
-    $rows = @()
+    # # build the table - Ann Crawford remove exeuctions from the documenation
+    # $rows = @()
     
-    # create the header row
-    $headers = @()
-    $headers += "ID"
-    if ($IncludePackage) {$headers += "Package"}
-    $headers += "Completed"
-    $headers += "Status"
-    $headers += "Start Time"
-    $headers += "End Time"
-    $headers += "Duration"
-    #if ($IncludePackage) {$headers += "Project"}
-    #if ($IncludePackage) {$headers += "Folder"}
-    $rows += Format-ConfluenceHtmlTableHeaderRow -Headers $headers
+    # # create the header row
+    # $headers = @()
+    # $headers += "ID"
+    # if ($IncludePackage) {$headers += "Package"}
+    # $headers += "Completed"
+    # $headers += "Status"
+    # $headers += "Start Time"
+    # $headers += "End Time"
+    # $headers += "Duration"
+    # #if ($IncludePackage) {$headers += "Project"}
+    # #if ($IncludePackage) {$headers += "Folder"}
+    # $rows += Format-ConfluenceHtmlTableHeaderRow -Headers $headers
 
-    # build out the executions rows
-    foreach ($e in $Executions) {
+    # # build out the executions rows
+    # foreach ($e in $Executions) {
 
-        $statusColor = $_integrationServicesExecutionConfiguration.StatusColors.Item($e.Status)
-        $statusContent = Format-ConfluenceStatusMacro -Color $statusColor -Text $e.Status
+    #     $statusColor = $_integrationServicesExecutionConfiguration.StatusColors.Item($e.Status)
+    #     $statusContent = Format-ConfluenceStatusMacro -Color $statusColor -Text $e.Status
 
-        # Set end time and duration if the job has ended
-        $endTime = ""
-        if ($e.Completed) {
-            $endTime = $e.EndTime.ToString($_integrationServicesExecutionConfiguration.DateTimeFormat)
-            $duration = $e.EndTime.Subtract($e.StartTime).ToString("hh\:mm\:ss")
-        } else {
-            $duration ="N/A"
-            $endTime = "N/A"
-        }
+    #     # Set end time and duration if the job has ended
+    #     $endTime = ""
+    #     if ($e.Completed) {
+    #         $endTime = $e.EndTime.ToString($_integrationServicesExecutionConfiguration.DateTimeFormat)
+    #         $duration = $e.EndTime.Subtract($e.StartTime).ToString("hh\:mm\:ss")
+    #     } else {
+    #         $duration ="N/A"
+    #         $endTime = "N/A"
+    #     }
 
-        $cells = @()
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.Id
-        if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.PackageName}
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents (Format-ConfluenceIcon -Icon $e.Completed) -Center $true
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $statusContent
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.StartTime.ToString($_integrationServicesExecutionConfiguration.DateTimeFormat)
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $endTime
-        $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $duration
-        #if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.ProjectName}
-        #if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.FolderName}
-        $rows += Format-ConfluenceHtmlTableRow -Cells $cells
-    }
+    #     $cells = @()
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.Id
+    #     if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.PackageName}
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents (Format-ConfluenceIcon -Icon $e.Completed) -Center $true
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $statusContent
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.StartTime.ToString($_integrationServicesExecutionConfiguration.DateTimeFormat)
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $endTime
+    #     $cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $duration
+    #     #if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.ProjectName}
+    #     #if ($IncludePackage) {$cells += New-ConfluenceHtmlTableCell -Type "td" -Contents $e.FolderName}
+    #     $rows += Format-ConfluenceHtmlTableRow -Cells $cells
+    # }
     
-    # pull it all together
-    $title = Format-ConfluenceHtml -Tag "h1" -Contents "Execution(s)"    
-    $table = Format-ConfluenceHtmlTable -Rows $rows
+    # # pull it all together
+    # $title = Format-ConfluenceHtml -Tag "h1" -Contents "Execution(s)"    
+    # $table = Format-ConfluenceHtmlTable -Rows $rows
     
-    # return
-    $title + $table
+    # # return
+    # $title + $table
+    Return ""
+
 }
 
 function Format-IntegrationServicesExecutionManifestConfluencePage($Executions,$ContentMap=$null) {

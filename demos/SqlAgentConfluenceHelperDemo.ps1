@@ -14,7 +14,7 @@ Import-Module .\Credentials.psm1 -Force
 
 $ConfluenceConnection = Get-ConfluenceConnection -UserName $Credentials.UserName -ApiToken $Credentials.ApiToken -HostName $Credentials.HostName
 $SqlAgentServerDev = $Credentials.SqlAgentServerDev
-$spaceKey = "GSD"
+$spaceKey = "DST"
 
 ########################################
 # xml experiments                      #
@@ -65,7 +65,7 @@ Publish-SqlAgentJobManifestConfluencePage -ConfluenceConnection $ConfluenceConne
 ###########################################
 
 <#
-$jobs = Get-SqlAgentJob -ServerInstance $SqlAgentServerDev | ? { $_.Name.StartsWith("GradDiv", "CurrentCultureIgnoreCase") }
+$jobs = Get-SqlAgentJob -ServerInstance $SqlAgentServerDev | ? { $_.Name.StartsWith("FinAid", "CurrentCultureIgnoreCase") }
 foreach ($job in $jobs) {
     Publish-SqlAgentJobConfluencePage -ConfluenceConnection $ConfluenceConnection -SqlAgentJob $job -SpaceKey $spaceKey -AncestorID 312246349
 }
