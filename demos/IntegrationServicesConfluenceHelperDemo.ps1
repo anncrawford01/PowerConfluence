@@ -19,10 +19,20 @@ $spaceKey = "DST"
 
 
 $catalog = (Get-IntegrationServicesCatalog -ServerName $SqlAgentServerDev)
-$package = $catalog.Folders["Ucsb.Sa.DataManagement.IntegrationServices"].Projects["Ucsb.Sa.DataManagement.IntegrationServices.Sevis"].Packages["Sevis - Archive_ShrinkMainframeTables.dtsx"]
+$foldername = "Ucsb.Sa.DataManagement.IntegrationServices"
+$projectname = "Ucsb.Sa.DataManagement.IntegrationServices.FinAid"
+$ssisFolder = $catalog.Folders.Item($foldername)
 
-Publish-IntegrationServicesPackageConfluencePage -ConfluenceConnection $ConfluenceConnection -SpaceKey $spaceKey -Package $package -Catalog $catalog
-#>
+$ssisProject = $ssisFolder.Projects.Item($projectname)
+
+
+# Loop trough all Packages in the Project
+  foreach ($p in $ssisProject.Packages) { 
+   
+      $package = $catalog.Folders[$foldername].Projects[$projectname].Packages[$p.Name]
+
+      Publish-IntegrationServicesPackageConfluencePage -ConfluenceConnection $ConfluenceConnection -SpaceKey $spaceKey -Package $package -Catalog $catalog
+ }
 
 ########################################################
 #      TOP 100 RECENT EXECUTIONS MANIFEST              #
