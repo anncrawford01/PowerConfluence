@@ -20,6 +20,7 @@ $spaceKey = "DST"
 
 $catalog = (Get-IntegrationServicesCatalog -ServerName $SqlAgentServerDev)
 $foldername = "Ucsb.Sa.DataManagement.IntegrationServices"
+
 $projectname = "Ucsb.Sa.DataManagement.IntegrationServices.FinAid"
 $ssisFolder = $catalog.Folders.Item($foldername)
 
